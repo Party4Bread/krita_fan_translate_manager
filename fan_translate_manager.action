@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionCollection version="2" name="Scripts">
+    <Actions category="Scripts">
+        <text>Project Setup</text>
+
+        <Action name="project_setup">
+        <icon></icon>
+        <text>Project Setup Wizard</text>
+        <whatsThis>Run the Project Setup Wizard</whatsThis>
+        <toolTip>Run the Project Setup Wizard</toolTip>
+        <iconText>Project Setup Wizard</iconText>
+        <activationFlags>0</activationFlags>
+        <activationConditions>0</activationConditions>
+        <shortcut>Ctrl+Alt+P</shortcut>
+        <isCheckable>false</isCheckable>
+        <statusTip></statusTip>
+        </Action>
+    </Actions>
+</ActionCollection>

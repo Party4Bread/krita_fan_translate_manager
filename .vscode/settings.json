@@ -1,0 +1,15 @@
+{
+    "python.autoComplete.extraPaths": [
+        "C:\\Program Files\\Krita (x64)\\lib\\krita-python-libs",
+        "C:\\Program Files\\Krita (x64)\\lib\\site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "C:\\Program Files\\Krita (x64)\\lib\\krita-python-libs",
+        "C:\\Program Files\\Krita (x64)\\lib\\site-packages"
+    ],
+    "python.analysis.include":[
+        "C:\\Program Files\\Krita (x64)\\lib\\krita-python-libs",
+        "C:\\Program Files\\Krita (x64)\\lib\\site-packages"
+    ],
+    "python.analysis.typeCheckingMode": "basic"
+}
