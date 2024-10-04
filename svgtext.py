@@ -18,9 +18,9 @@ def guide_rect(x,y,w,h):
     ele.set('height', str(h))
     return ele
 
-def textgen(txt, w, font, fontsize=24):
+def textgen(txt, w, font, fontsize=24, line_multiplier=1.0):
     # Create QFont and QFontMetrics objects
-    qfont = QFont(font, 24)
+    qfont = QFont(font, fontsize)
     font_metrics = QFontMetrics(qfont)
 
     ele = ET.Element('text')
@@ -78,14 +78,16 @@ def textgen(txt, w, font, fontsize=24):
     # Create tspan elements for each line
     # y_offset = 0
     line_height = font_metrics.height()
+    totaly=0
     for line in lines:
         tspan = ET.SubElement(ele, 'tspan')
         tspan.set('x', str(max_width/2))  # Set x to 0 for all lines
-        tspan.set('dy', str(line_height))
+        tspan.set('dy', str(line_height*line_multiplier))
+        totaly+=line_height*line_multiplier
         tspan.text = line
 
     ele.set('transform', f'translate({w/2}, {font_metrics.capHeight()})')
-    return ele
+    return ele,totaly
 
 def main():
     app = QApplication(sys.argv)

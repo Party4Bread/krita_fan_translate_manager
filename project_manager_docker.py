@@ -1,12 +1,12 @@
-from typing import Union
+from typing import Union, cast
 from krita import DockWidget,Krita
-from PyQt5.QtWidgets import QDialog, QStackedWidget, QPushButton, QHBoxLayout,  QSplitter
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QListWidget, QListWidgetItem
-from PyQt5.QtGui import QPixmap, QDrag
-from PyQt5.QtCore import Qt, QMimeData, pyqtSignal, QTimer
+from PyQt5.QtWidgets import QSplitter, QWidget, QVBoxLayout, QLabel, QListWidget, QListWidgetItem
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt, pyqtSignal
 from pathlib import Path
 from .datatypes import Project,Page
 from .project_watcher import ProjectWatcher
+from .commons.util import ensure
 
 DOCKER_TITLE = 'Fan Translate Page Managing Docker'
 THM_RECT = 64
@@ -87,7 +87,7 @@ class ThumbnailGrid(QListWidget):
         new_order = []
         for i in range(self.count()):
             item = self.item(i)
-            container = self.itemWidget(item)
+            container = cast(DraggableContainer,self.itemWidget(item))
             new_order.append(container.page)
         self.project.pages = new_order
         self.update_thumbnails()
@@ -133,10 +133,10 @@ class ProjectManagerDocker(DockWidget):
         if project is None:
             self.thumbnail_grid.clear_grid()
             return
-
+        project = ensure(project)
         self.thumbnail_grid.update_project(self.project)
         self.thumbnail_grid.update_thumbnails()
-        self.label1.setText("Project "+self.project.title)
+        self.label1.setText("Project "+project.title)
 
 
     def canvasChanged(self, canvas):

@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import cast
 from PyQt5.QtWidgets import (QWizard, QWizardPage, QLineEdit, QVBoxLayout, QLabel, QProgressDialog,
                              QFileDialog, QPushButton, QListWidget, QAbstractItemView, QHBoxLayout)
 from krita import Krita, Extension
@@ -22,7 +23,7 @@ class ProjectSetupWizard(QWizard):
         selected_files = self.field("selectedFiles")
         
         # Get the reordered file list
-        image_order_page = self.page(2)
+        image_order_page = cast(ImageOrderPage,self.page(2))
         reordered_files = [selected_files[i] for i in image_order_page.get_file_order()]
 
         project = Project(project_folder)
@@ -94,7 +95,9 @@ class ImageImportPage(QWizardPage):
         layout = QVBoxLayout()
         self.file_label = QLabel("No files selected")
         layout.addWidget(self.file_label)
-        layout.addWidget(QPushButton("Select Files", clicked=self.select_files))
+        button = QPushButton("Select Files")
+        button.clicked.connect(self.select_files)
+        layout.addWidget(button)
         self.setLayout(layout)
 
         self.registerField("selectedFiles", self, "selectedFiles")
@@ -114,7 +117,7 @@ class DraggableListWidget(QListWidget):
 
     def dropEvent(self, event):
         super().dropEvent(event)
-        self.parent().update_preview()
+        # self.parent().update_preview()
 
 class ImageOrderPage(QWizardPage):
     def __init__(self, parent=None):
